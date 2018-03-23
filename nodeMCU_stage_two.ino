@@ -2,6 +2,9 @@
 //wifi: http://henrysbench.capnfatz.com/henrys-bench/arduino-projects-tips-and-more/connect-nodemcu-esp-12e-to-wifi-router-using-arduino-ide/
 //wifi:https://github.com/esp8266/Arduino/tree/master/doc/esp8266wifi
 
+//connect to existing AP and then listen on port 80 for GPIO control
+//experimentation on AP and server functionalities without using WebServer library functions
+
 #include "FS.h"
 #include "ESP8266WiFi.h"
 
@@ -186,7 +189,7 @@ void wifi_ap_scan() //scan for existing APs. works correctly
             ssID = ssid_name[l];
             password = ssid_passkey[l];
             wifi_ap_connect();
-            //server_actions(); 
+            server_actions();   //listen on port 80 after successful conn
             conn = 1;
           }
         }
@@ -200,5 +203,5 @@ void wifi_ap_scan() //scan for existing APs. works correctly
 void loop() 
 {
   server_actions(); 
-  //wifi_ap_scan(); 
+  wifi_ap_scan();   //scan for connection to registered APs
 }
